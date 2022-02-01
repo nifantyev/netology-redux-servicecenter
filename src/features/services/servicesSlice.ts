@@ -13,11 +13,13 @@ export interface ServicesState {
     price: number;
   };
   editedServiceId?: number;
+  filter: string;
 }
 
 const initialState: ServicesState = {
   services: [],
   serviceForm: { name: '', price: 0 },
+  filter: '',
 };
 
 const servicesSlice = createSlice({
@@ -70,6 +72,9 @@ const servicesSlice = createSlice({
       const { name, value } = action.payload;
       state.serviceForm = { ...state.serviceForm, [name]: value };
     },
+    updateFilter(state, action: PayloadAction<string>) {
+      state.filter = action.payload;
+    },
   },
 });
 
@@ -79,6 +84,7 @@ export const {
   editService,
   cancelEditService,
   updateServiceFormProp,
+  updateFilter,
 } = servicesSlice.actions;
 
 export default servicesSlice.reducer;
