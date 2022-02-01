@@ -7,7 +7,7 @@ import { editService, removeService } from './servicesSlice';
 export default function ServiceList() {
   const dispatch = useAppDispatch();
 
-  const { services, editedServiceId } = useAppSelector(
+  const { services, editedServiceId, filter } = useAppSelector(
     (store) => store.services
   );
 
@@ -25,9 +25,13 @@ export default function ServiceList() {
     dispatch(removeService(id));
   };
 
+  const filteredServices = services.filter((o) =>
+    o.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
   return (
     <ul>
-      {services.map((o) => (
+      {filteredServices.map((o) => (
         <li key={o.id}>
           {o.name} {o.price}
           &nbsp;
