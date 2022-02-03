@@ -1,32 +1,73 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import {
-  saveService,
-  updateServiceFormProp,
+  createService,
+  updateService,
   cancelEditService,
 } from './servicesSlice';
+
+interface FormState {
+  name: string;
+  price: number;
+}
 
 export default function ServiceForm() {
   const dispatch = useAppDispatch();
 
-  const { serviceForm, editedServiceId } = useAppSelector(
+  const [form, setForm] = useState<FormState>({
+    name: '',
+    price: 0,
+  });
+
+  const { services, editedServiceId } = useAppSelector(
     (store) => store.services
   );
 
+  useEffect(() => {
+    if (editedServiceId) {
+      const editedService = services.find((o) => o.id === editedServiceId);
+      if (editedService) {
+        setForm({
+          name: editedService.name,
+          price: editedService.price,
+        });
+      }
+    } else {
+      setForm({
+        name: '',
+        price: 0,
+      });
+    }
+  }, [editedServiceId, services]);
+
   const handleChange = (event: any) => {
     const { name, value } = event.target;
-    dispatch(updateServiceFormProp({ name, value }));
+    setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
 
   const handleSave = (event: any) => {
     event.preventDefault();
-    dispatch(
-      saveService({
-        id: editedServiceId ?? 0,
-        name: serviceForm.name,
-        price: serviceForm.price,
-      })
-    );
+    if (editedServiceId) {
+      dispatch(
+        updateService({
+          id: editedServiceId,
+          name: form.name,
+          price: form.price,
+        })
+      );
+    } else {
+      dispatch(
+        createService({
+          id: 0,
+          name: form.name,
+          price: form.price,
+        })
+      );
+    }
+    setForm({
+      name: '',
+      price: 0,
+    });
   };
 
   const handleCancel = () => {
@@ -38,13 +79,13 @@ export default function ServiceForm() {
       <input
         type="text"
         name="name"
-        value={serviceForm.name}
+        value={form.name}
         onChange={handleChange}
       />
       <input
         type="text"
         name="price"
-        value={serviceForm.price}
+        value={form.price}
         onChange={handleChange}
       />
       <button type="submit">Save</button>
