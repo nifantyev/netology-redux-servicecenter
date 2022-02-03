@@ -7,9 +7,11 @@ import { editService, removeService } from './servicesSlice';
 export default function ServiceList() {
   const dispatch = useAppDispatch();
 
-  const { services, editedServiceId, filter } = useAppSelector(
+  const { services, editedServiceId } = useAppSelector(
     (store) => store.services
   );
+
+  const { filter } = useAppSelector((store) => store.filter);
 
   const handleEdit = (id: number) => {
     dispatch(editService(id));

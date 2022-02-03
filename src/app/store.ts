@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import servicesSlice from '../features/services/servicesSlice';
+import filterSlice from '../features/services/filterSlice';
 
 export const store = configureStore({
   reducer: {
     services: servicesSlice,
+    filter: filterSlice,
   },
 });
 

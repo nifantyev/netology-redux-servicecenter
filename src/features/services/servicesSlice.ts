@@ -9,12 +9,10 @@ interface Service {
 export interface ServicesState {
   services: Service[];
   editedServiceId?: number;
-  filter: string;
 }
 
 const initialState: ServicesState = {
   services: [],
-  filter: '',
 };
 
 const servicesSlice = createSlice({
@@ -50,9 +48,6 @@ const servicesSlice = createSlice({
     cancelEditService(state) {
       state.editedServiceId = undefined;
     },
-    updateFilter(state, action: PayloadAction<string>) {
-      state.filter = action.payload;
-    },
   },
 });
 
@@ -62,7 +57,6 @@ export const {
   removeService,
   editService,
   cancelEditService,
-  updateFilter,
 } = servicesSlice.actions;
 
 export default servicesSlice.reducer;
