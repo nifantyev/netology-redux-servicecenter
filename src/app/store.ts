@@ -1,5 +1,5 @@
 import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import servicesSlice from '../features/services/servicesSlice';
 import filterSlice from '../features/services/filterSlice';
 
