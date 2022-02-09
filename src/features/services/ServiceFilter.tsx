@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { useAppSelector, useAppDispatch } from '../../app/store';
 import { updateFilter } from './filterSlice';
 
 const ServiceFilter: React.FC = () => {

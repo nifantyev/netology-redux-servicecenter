@@ -1,7 +1,7 @@
 import React from 'react';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { useAppSelector, useAppDispatch } from '../../app/store';
 import { editService, removeService } from './servicesSlice';
 
 export default function ServiceList() {
